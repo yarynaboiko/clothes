@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>{{item.title}}</title>  
+{% endblock title %}
+
+{% block content %}
+    <main class="container py-5">
+        <div class="row">
+            <div class="col-12 col-md-6"><img src="{{ url_for('static', filename='item_images/'+ item.image) }}" class="rounded img-fluid" alt="..."></div>
+            <div class="col-12 col-md-6"><nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{{url_for('index')}}">Усі товари</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><a href = "">{{item.category}}</a></li>
+                </ol>
+            </nav> 
+            <h1>{{item.title}}</h1>
+            <h2>{{item.price}}</h2>
+            <form action="" method = "POST">  
+            <select name = "size" required class="form-select" aria-label="Default select example">
+    
+                <option selected>Вибрати розмір</option>
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+              </select>      
+            
+            {% for type, message in get_flashed_messages(True) %}
+                <div class="alert {{type}} my-3 "> {{message}} </div>
+            {% endfor %}
+
+            <button type = "submit" class="add-card"> Додати в кошик</button>
+        </form> 
+            <p>{{item.description}}</p></div>
+        </div>
+        
+       
+
+        <!-- Головний контент сторінки -->
+    </main>
+  {% endblock content %}

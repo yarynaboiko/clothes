@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+  <!-- Голова: опис сторінки та підключення стилів -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block title %}
+  <title>Головна сторінка</title>
+  {% endblock title %}
+  <!-- Підключення CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,500&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+  <!-- Тіло: увесь вміст сторінки -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img
+            src="https://static.tildacdn.com/tild3537-6232-4732-a664-363662623537/Subtract.svg" alt="Logo" width="80"
+            height="24" class="d-inline-block align-text-top"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Усі товари</a>
+            </li>
+
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Категорії
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{url_for('category_page', category_name = 'куртка')}}">Верхінй
+                    одяг</a></li>
+                <li><a class="dropdown-item" href="{{url_for('category_page', category_name = 'взуття')}}">Взуття</a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{{url_for('category_page', category_name = 'штани')}}">Штани</a></li>
+                <li><a class="dropdown-item" href="{{url_for('category_page', category_name = 'сукні')}}">Сукні</a></li>
+                <li><a class="dropdown-item" href="#">Сорочки</a></li>
+                <li><a class="dropdown-item" href="#">Футболки</a></li>
+              </ul>
+            </li>
+
+          </ul>
+          <form class="d-flex me-2" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Пошук</button>
+          </form>
+
+          <a href="{{url_for('cart_page')}}" class="btn btn-outline-danger" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><svg xmlns="http://www.w3.org/2000/svg"
+              width="16" height="16" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
+              <path
+                d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z" />
+            </svg>Кошик</a>
+
+        </div>
+      </div>
+    </nav>
+    <!-- Шапка сайту: назва, логотип, навігація -->
+  </header>
+  {% block content %}
+
+  {% endblock content %}
+  <footer>
+    <!-- Підвал сайту: про сайт, автор, контакти тощо -->
+  </footer>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Кошик</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="list-group">
+        {% for item in cart %}
+        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+          <div class="row">
+            <div class="col-4">
+
+            
+              <img src="{{ url_for('static', filename='item_images/'+ item[1].image) }}" class="rounded img-fluid" alt="...">
+            </div>
+            <div class="col-8">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{item[1].title}}</h5>
+                <h4>{{item[1].price}} грн</h4>
+                <form action="{{url_for('index')}}">
+                <button type="submit" class="btn-close"></button>
+                </form>
+              </div>
+              <div class="mb-1">Розмір: {{item[0].size}}</div>
+              <div>Кількість: {{item[0].amount}}</div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+        
+      
+
+
+
+  </div>
+  </div>
+  </div>
+  <!-- Підключення JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
