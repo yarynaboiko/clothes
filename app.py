@@ -10,8 +10,7 @@ db.init_app(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
+    
     password = db.Column(db.String, nullable=False)
 
 class Item(db.Model):
@@ -24,7 +23,8 @@ class Item(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    name = db.Column(db.String)
+    email = db.Column(db.String)
     phone = db.Column(db.Text)
     address = db.Column(db.String)
     status = db.Column(db.String, default = 'new')
@@ -83,18 +83,13 @@ def item_page(item_id):
 def category_page(category_name):
     items = Item.query.filter_by(category=category_name).all()
     cart_items = get_cart()
-    if 'order_id' in session:
-        order_id = session['order_id']
-        order = Order.query.get(order_id)
-        if order.status == "new":
-            cart_items = OrderItem.query.filter_by(order_id = order.id).all()
 
     return render_template("index.html", title = category_name, items = items, cart = cart_items )  # html-сторінка, що повертається у браузер
 
-@app.route ("/cart", methods = ['GET', 'POST'])  # Вказуємо url-адресу для виклику функції
-def cart_page():
+@app.route ("/order", methods = ['GET', 'POST'])  # Вказуємо url-адресу для виклику функції
+def order_page():
     cart_items = get_cart()
-    return render_template("cart.html", cart = cart_items)
+    return render_template("order.html", cart = cart_items)
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True  # автоматичне оновлення шаблонів

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Оформлення замовлення</title>  
+{% endblock title %}
+
+{% block content %}
+    <main class="container py-5">
+        <h1>Оформлення замовлення:</h1>
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <form class="row g-3" action="" method = "POST">
+                <div class="col-md-12">
+                  <label for="inputEmail4" class="form-label">Прізвище та ім'я</label>
+                  <input required name="name" type ="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label for="inputEmail4" class="form-label">Email</label>
+                  <input required name="email" type="email" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label for="inputAddress" class="form-label">Номер телефону</label>
+                  <input required name="phone" type="phone" class="form-control">
+                </div>
+                <div class="col-12">
+                  <label for="inputAddress" class="form-label">Адреса доставки</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="Місто, вулиця, будинок, квартира">
+                </div>
+                <div class="col-12">
+                  <button type = "submit" class="add-card"> Надіслати</button>
+                  
+                </div>  
+            </form>
+          </div>
+          <div class="col-12 col-lg-4"><div class="list-item">
+        {% for item in cart %}
+        <a href="#" class="list-group-item list-group-item-action " aria-current="true">
+          <div class="row">
+            <div class="col-3">
+              <img src="{{ url_for('static', filename='item_images/'+ item[1].image) }}" class="rounded img-fluid" alt="...">
+            </div>
+            <div class="col-9">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{item[1].title}}</h5>
+                <h4>{{item[1].price}} грн </h4>
+                <form action="{{url_for('index')}}">
+                <button type="submit" class="btn-close"></button>
+                </form>
+              </div>
+              <div class="mb-1">Розмір: {{item[0].size}}</div>
+              <div>Кількість: {{item[0].amount}}</div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div></div>
+        </div>
+        
+    </main>
+{% endblock content %}

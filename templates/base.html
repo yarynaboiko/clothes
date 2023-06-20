@@ -63,7 +63,7 @@
             <button class="btn btn-outline-success" type="submit">Пошук</button>
           </form>
 
-          <a href="{{url_for('cart_page')}}" class="btn btn-outline-danger" type="button" data-bs-toggle="offcanvas"
+          <a href="" class="btn btn-outline-danger" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><svg xmlns="http://www.w3.org/2000/svg"
               width="16" height="16" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
               <path
@@ -91,15 +91,15 @@
         {% for item in cart %}
         <a href="#" class="list-group-item list-group-item-action" aria-current="true">
           <div class="row">
-            <div class="col-4">
+            <div class="col-3">
 
             
               <img src="{{ url_for('static', filename='item_images/'+ item[1].image) }}" class="rounded img-fluid" alt="...">
             </div>
-            <div class="col-8">
+            <div class="col-9">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{item[1].title}}</h5>
-                <h4>{{item[1].price}} грн</h4>
+                <h4>{{item[1].price}} грн </h4>
                 <form action="{{url_for('index')}}">
                 <button type="submit" class="btn-close"></button>
                 </form>
@@ -110,10 +110,14 @@
           </div>
         </a>
         {% endfor %}
+        {% if cart|length > 0 %}
+          <form action="{{url_for('order_page')}}" >
+        <button type = "submit" class="add-card"> Оформити замовлення</button>
+        </form>
+        {% else %}
+          <p>Кошик порожній</p>
+        {% endif %}
         
-      
-
-
 
   </div>
   </div>

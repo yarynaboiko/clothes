@@ -4,7 +4,7 @@ body{
 }
 
 button.add-card {
-    margin: 30px ;
+    margin: 30px 0;
     position: relative;
     display: inline-block;
     cursor: pointer;
