@@ -1,12 +1,22 @@
-{% extends 'base.html' %}
+{% for item in cart %}
+        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+          <div class="row">
+            <div class="col-3">
 
-{% block title %}
-  <title>Кошик</title>  
-{% endblock title %}
-
-{% block content %}
-    <main class="container">
-        <h1>Товари в кошику:</h1>
-
-    </main>
-{% endblock content %}
+            
+              <img src="{{ url_for('static', filename='item_images/'+ item[1].image) }}" class="rounded img-fluid" alt="...">
+            </div>
+            <div class="col-9">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{item[1].title}}</h5>
+                <h4>{{item[1].price}} грн </h4>
+                <form action="{{url_for('item_delete', item_id = item[0].id)}}">
+                <button type="submit" class="btn-close"></button>
+                </form>
+              </div>
+              <div class="mb-1">Розмір: {{item[0].size}}</div>
+              <div>Кількість: {{item[0].amount}}</div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}

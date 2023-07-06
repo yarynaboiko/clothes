@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Реєстрація</title>  
+{% endblock title %}
+
+{% block content %}
+    <main class="container py-5">
+        <h1>Зареєструвати профіль:</h1>
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <form action="" method = "POST">
+                <div class="row">
+                    <label for="exampleFormControlInput1" class="form-label">Введіть ім'я та прізвище:</label>
+                    <div class="col-sm-6 mb-3">
+                        <input required name= "firstname" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Ваше ім'я">
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <input required name="surname" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Ваше прізвище">
+                    </div>
+                
+                  
+                <div class="mb-3">
+                  <label for="inputEmail4" class="form-label">Введіть Email</label>
+                  <input required name="email" type="email" class="form-control" placeholder="name@example.com">
+                </div>
+                <div class="col-12 col-lg-8">
+                  <form class="row g-3" action="" method = "POST">
+                      <div class="mb-3">
+                        <label for="inputEmail4" class="form-label">Введіть пароль</label>
+                        <input required name="password" type="password" class="form-control">
+                      </div>
+                      <div class="mb-3">
+                        <label for="inputEmail4" class="form-label">Повторіть введений пароль</label>
+                        <input required name="password-repeat" type="password" class="form-control">
+                      </div>
+                    {% for type, message in get_flashed_messages(True) %}
+                      <div class="alert {{type}} my-3 "> {{message}} </div>
+                    {% endfor %}
+                <div class="col-12">
+                  <button type = "submit" class="add-card"> Створити профіль</button>
+                  <a href="{{url_for('login')}}" class="ms-3 text-dark">Уже маєте профіль? Увійдіть</a>
+                </div>  
+            </form>
+          </div>
+          </div>
+        </div>
+        
+    </main>
+{% endblock content %}

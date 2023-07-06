@@ -6,9 +6,19 @@
 
 {% block content %}
     <main class="container">
-        <h1 class="my-5 mb-3 text-center">{{title.capitalize()}}</h1>
-       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        {% for item in items %}
+      {% for type, message in get_flashed_messages(True) %}
+          <div class="alert {{type}} my-3 "> {{message}} </div>
+      {% endfor %}
+
+         
+        <h1 class="my-5">{{title.capitalize()}}</h1>
+        {% if items | length == 0 %}
+          <h2 class="my-5 mb-3">За вашим запитом нічого не знайдено</h2>
+        {% endif %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          
+
+          {% for item in items %}
         <div class="col">
         <div class="card">
           <img src= "{{ url_for('static', filename='item_images/'+ item.image) }}" class="card-img-top" alt="...">

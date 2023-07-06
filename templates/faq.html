@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Допомога</title>  
+{% endblock title %}
+
+{% block content %}
+<main class="container py-5">
+    <h1>Відповіді на популярні питання:</h1>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              <strong>Які розміри вказані на сайті?</strong>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <mark>На нашому сайті вказані українські розміри.</mark> Також ви можете скористатись таблицею розмірів, яка є представлена на нашому сайті. Зверніть увагу! Розмірна таблиця не гарантує ідеальної посадки одягу по фігурі. При виборі розміру потрібно враховувати ступінь розтяжності тканини, так як в різних тканинах вона різна. Якщо Ви робите замовлення в інтернеті, і все ж сумніваєтеся, який розмір Вам підійде - задайте це питання нашому менеджеру, і він допоможе Вам точно підібрати Ваш розмір.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              <strong>Якщо мені не підійшла модель, чи можу я її повернути чи обміняти?</strong>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <mark>Якщо вам не підійшла модель, ви можете повернути її або обміняти на іншу модель в нашому інтернет-магазині.</mark> <em>Умови повернення або обміну:</em> Покупець несе всі витрати, пов'язані з доставкою моделі, яку хоче повернути або обміняти, самостійно. Після отримання моделі, якщо вона не підійшла, Покупець зв'язується за телефонами, вказаними на сайті в день отримання товару або наступного дня після отримання, але не пізніше, та інформує нас про повернення. Після чого Покупець оплачує доставку моделі, що повертається і відправляє товар назад. Якщо Покупець відмовляється від товару, розглянувши його на відділенні служби доставки, він оплачує витрати на доставку до його регіону та назад. Вартість доставки розраховується на службі доставки, яка виставляє рахунок за доставку Покупцю.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+              <strong>Чи правда, що ціни підвищують перед розпродажем?</strong>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <mark>Прикріплення цінників з двома цінами – підвищеною та акційною, є незаконним, тому це заборонено.</mark> Цінники друкують задовго до надходження товару у магазини. Причиною на ціннику двох різних цін є переоцінка товару перед продажем. Ціни можуть бути як знижені, так і підвищені. Такі зміни можуть залежати від багатьох факторів, зокрема економічних, таких як зміни валютних курсів або транспортні витрати, або бути результатом допущених людьми помилок. У таких випадках помилкову ціну викреслюють, а поверх неї наліплюють нову.
+            </div>
+          </div>
+        </div>
+      </div>
+
+</main>
+{% endblock content %}
