@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Мої замовлення</title>  
+{% endblock title %}
+
+{% block content %}
+    <main class="container py-5">
+        <h1>Мої замовлення</h1>
+        <div class="accordion" id="accordionExample">
+{% for order in orders %}
+<div class="accordion-item">
+    <h2 class="accordion-header">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{order.id}}" aria-expanded="true" aria-controls="collapse{{order.id}}">
+        <h3>Замовлення №{{order.id}}</h3>
+        <h4 class = "ms-5"> Статус: {{order.status}}</h4> 
+
+    </button>
+    </h2>
+    <div id="collapse{{order.id}}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+        {% for item in order.items %}
+        <a href="#" class="list-group-item list-group-item-action" aria-current="true">    
+            <div class="row">
+              <div class="col-3">
+                <img src="{{ url_for('static', filename='item_images/'+ item.item.image) }}" class="rounded img-fluid" alt="...">
+              </div>
+              <div class="col-9">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{item.item.title}}</h5>
+                  <h4>{{item.item.price}} грн </h4>
+                </div>
+                <div class="mb-1">Розмір: {{item.size}}</div>
+                <div>Кількість: {{item.amount}}</div>
+              </div>
+              </div>
+              </a>
+              {% endfor %}
+    </div>
+    </div>
+</div>
+        
+            {% endfor %}
+        </div>  
+
+    </main>
+{% endblock content %}

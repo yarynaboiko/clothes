@@ -2,18 +2,29 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
+from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
+login_manager = LoginManager()
+login_manager.login_view = "signup"
+login_manager.login_message = "Щоб переглянути власні замовлення увійдіть, або зареєструйтесь."
+login_manager.login_message_category = "alert-warning"
+
 db = SQLAlchemy()
 
 app = Flask(__name__)  # Створюємо веб–додаток Flask
 app.config['SECRET_KEY'] = "fghjklkjhgfd"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///clothes_shop.db"
 db.init_app(app)
+login_manager.init_app(app)
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -39,6 +50,8 @@ class OrderItem(db.Model):
     item_id = db.Column(db.Integer, db.ForeignKey("item.id"))
     amount = db.Column(db.Integer, default = 1)
     size = db.Column(db.String)
+
+    item = db.relationship('Item', backref= 'items')
     
 def get_cart():
     cart_items = []
@@ -141,30 +154,55 @@ def search():
 
 @app.route ("/login", methods = ['GET', 'POST'])  # Вказуємо url-адресу для виклику функції
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     cart_items = get_cart()
+    if request.method == "POST":
+        user = User.query.filter_by(email=request.form['email']).first()
+        if user:
+            check = check_password_hash(user.password, request.form['password'])
+        if user and check:
+            login_user(user, remember=True)
+            return redirect(url_for('index'))
+        else:
+            flash("Неправильний email або пароль.", "alert-warning")
+
     return render_template("login.html", title = "Увійти в профіль ",  cart = cart_items)
 
+@app.route ("/logout", methods = ['GET', 'POST'])  # Вказуємо url-адресу для виклику функції
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route ("/signup", methods = ['GET', 'POST'])  # Вказуємо url-адресу для виклику функції
 def signup():
     cart_items = get_cart()
     if request.method == 'POST':
-        user = User.query.filter_by(email=request.form['email']).first()
-        if user:
-            flash("Користувач з таким email вже існує.", "alert-danger")
-        else:
-            if request.form['password'] != request.form['password-repeat']:
+        if request.form['password'] != request.form['password-repeat']:
                 flash("Паролі повинні співпадати.", "alert-danger")
+        else:
+            user = User.query.filter_by(email=request.form['email']).first()
+            username = request.form['firstname'].capitalize() + ' ' + request.form['surname'].capitalize()
+            hash = generate_password_hash(request.form['password'])
+            if user:
+                user.password = hash
+                user.name = username
             else:
-                username = request.form['firstname'].capitalize() + ' ' + request.form['surname'].capitalize()
-                hash = generate_password_hash(request.form['password'])
                 user = User(name = username, email = request.form['email'], password = hash)
                 db.session.add(user)
-                db.session.commit()
-                flash("Профіль створено.", "alert-success")
-                return redirect(url_for('login'))
+            db.session.commit()
+            flash("Профіль створено.", "alert-success")
+            return redirect(url_for('login'))
 
     return render_template("signup.html", title = "Реєстрація",  cart = cart_items)
+
+
+@app.route("/myorders")  # Вказуємо url-адресу для виклику функції
+@login_required
+def myorders():
+    cart_items = get_cart()
+    orders = Order.query.filter_by(email=current_user.email).all()
+    return render_template("myorders.html", orders=orders, cart = cart_items)
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True  # автоматичне оновлення шаблонів

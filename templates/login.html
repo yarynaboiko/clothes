@@ -18,7 +18,7 @@
                   <form class="row g-3" action="" method = "POST">
                       <div class="mb-3">
                         <label for="inputEmail4" class="form-label">Введіть пароль</label>
-                        <input required name="email" type="password" class="form-control">
+                        <input required name="password" type="password" class="form-control">
                       </div>
                     {% for type, message in get_flashed_messages(True) %}
                       <div class="alert {{type}} my-3 "> {{message}} </div>

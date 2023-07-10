@@ -3,6 +3,9 @@ body{
     font-family: 'Cormorant Garamond', serif; 
 }
 
+footer{
+    background:rgb(240, 214, 214);
+}
 
 button.add-card {
     margin: 30px 0;

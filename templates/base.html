@@ -63,8 +63,19 @@
             </li>  
 
             <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('myorders')}}">Мої замовлення</a>
+            </li>  
+
+{% if current_user.is_anonymys %}
+  <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{{url_for('login')}}">Увійти</a>
             </li>
+{% else %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="{{url_for('logout')}}">Вийти</a>
+</li>
+{% endif %}
+            
 
           </ul>
           <form class="d-flex me-2" role="search" action ="{{url_for('search')}}" method="GET">
@@ -87,8 +98,8 @@
   {% block content %}
 
   {% endblock content %}
-  <footer>
-    <!-- Підвал сайту: про сайт, автор, контакти тощо -->
+  <footer class="p-5 mt-5 text-center">
+    <h4>Сайт розробила: Бойко Ярина в школі Logika &copy 2023</h4>
   </footer>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
